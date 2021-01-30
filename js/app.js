@@ -337,7 +337,7 @@ class OpenWandererApp {
             "<input id='password' type='password' /> </p>");
         this.loginDlg.div.id='dlgLogin';
         
-        fetch ('login').then(resp => resp.json()).then(json => {
+        fetch ('user/login').then(resp => resp.json()).then(json => {
                 this.username = json.username;
                 this.userid = json.userid;
                 this.isadmin = json.isadmin;
@@ -381,7 +381,7 @@ class OpenWandererApp {
 
     processLogin() {
         var json=JSON.stringify({"username": document.getElementById("username").value,  "password": document.getElementById("password").value});
-        fetch('login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body:json})
+        fetch('user/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body:json})
             .then(res => {
                 if(res.status == 401) {
                    throw('Incorrect login.');
@@ -407,7 +407,7 @@ class OpenWandererApp {
 
     processSignup() {
         var json=JSON.stringify({"username": document.getElementById("signup_username").value,  "password": document.getElementById("signup_password").value, "password2": document.getElementById("password2").value});
-        fetch('signup', { method: 'POST', headers: {'Content-Type': 'application/json'}, body:json})
+        fetch('user/signup', { method: 'POST', headers: {'Content-Type': 'application/json'}, body:json})
                 .then(res => res.json())
                 .then(json => {
                     if(json.error) {
@@ -479,7 +479,7 @@ class OpenWandererApp {
     } 
 
     logout() {
-        fetch('logout', {method:"POST"}).then(resp=> {
+        fetch('user/logout', {method:"POST"}).then(resp=> {
             this.username = null;
             this.userid = this.isadmin = 0; 
             this.onLoginStateChange();
