@@ -2,6 +2,7 @@ import MapManager from './map.js';
 import XHRPromise from './xhrpromise.js';
 import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
 import Dialog from './dialog.js';
+import OWTransition from './node_modules/openwanderer-jsapi-transitions/index.js';
 
 class OpenWandererApp {
     constructor(zoom, resize) {
@@ -26,6 +27,8 @@ class OpenWandererApp {
     }
 
     setupNavigator() {
+        OWTransition.init();
+
         const seqProvider = new OpenWanderer.SimpleSequenceProvider({
             sequenceUrl: 'sequence/{id}'
         });
@@ -38,7 +41,8 @@ class OpenWandererApp {
             },
             splitPath: true,
             svgEffects: true,
-            loadSequence: seqProvider.getSequence.bind(seqProvider)
+            loadSequence: seqProvider.getSequence.bind(seqProvider),
+            panoTransFunc: OWTransition.goTo.bind(OWTransition)
         });
     }
 
