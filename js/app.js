@@ -41,7 +41,7 @@ class OpenWandererApp {
             },
             splitPath: true,
             svgEffects: true,
-            loadSequence: seqProvider.getSequence.bind(seqProvider),
+            sequence: seqProvider.getSequence.bind(seqProvider),
             panoTransFunc: OWTransition.goTo.bind(OWTransition)
         });
     }
