@@ -1,9 +1,9 @@
 {
  "name": "openwanderer-app",
  "description": "The OpenWanderer demo web app",
- "version": "0.0.12",
+ "version": "0.0.13",
  "dependencies": {
-  "openwanderer-jsapi": "^0.0.6",
+  "openwanderer-jsapi": "^0.0.7",
   "openwanderer-jsapi-transitions": "^0.0.2",
   "leaflet-rotatedmarker": "^0.2.0"
  }

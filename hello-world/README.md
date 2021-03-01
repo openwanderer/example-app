@@ -1,9 +1,11 @@
-OpenWanderer basic example application 
-======================================
+OpenWanderer Hello World application 
+====================================
 
-This is a basic example OpenWanderer web application, making use of the new Composer package for the server `openwanderer/openwanderer`. For a fuller application with more functionality, please see the `full` directory.
+This is a 'hello world' example OpenWanderer web application, making use of the new Composer package for the server `openwanderer/openwanderer`. 
 
-This basic application allows you to upload panorama sequences and navigate along existing sequences. You can also jump to a given panorama (by ID or nearest to a given latitude and longitude).
+This basic application illustrates how you can load a panorama with a given ID. It *assumes that you have a server setup already with panoramas and panorama sequences*, and that you have a pano with an ID of 1 belonging to a sequence. If you do, it will load the pano with the ID of 1 and show you the sequence that it belongs to, and allows you to navigate along the sequence. 
+
+It is more intended as example code rather than a working and useful application. Please see the `basic` or `full` examples for working and usable applications.
 
 Licensing
 ---------
