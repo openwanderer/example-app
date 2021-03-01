@@ -29,19 +29,15 @@ class OpenWandererApp {
     setupNavigator() {
         OWTransition.init();
 
-        const seqProvider = new OpenWanderer.SimpleSequenceProvider({
-            sequenceUrl: 'sequence/{id}'
-        });
-
         this.navigator = new OpenWanderer.Navigator({
             api: { 
                 byId: 'panorama/{id}', 
                 panoImg: 'panorama/{id}.jpg',
                 nearest: 'nearest/{lon}/{lat}',
+                sequenceUrl: 'sequence/{id}'
             },
             splitPath: true,
             svgEffects: true,
-            sequence: seqProvider.getSequence.bind(seqProvider),
             panoTransFunc: OWTransition.goTo.bind(OWTransition)
         });
     }

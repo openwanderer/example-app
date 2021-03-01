@@ -15,17 +15,12 @@ if(parts.length==2) {
     }     
 }    
 
-const seqProvider = new OpenWanderer.SimpleSequenceProvider({
-    sequenceUrl: 'sequence/{id}'
-});
-
 const navigator = new OpenWanderer.Navigator({
     api: { 
         byId: 'panorama/{id}', 
         panoImg: 'panorama/{id}.jpg',
         nearest: 'nearest/{lon}/{lat}'
-    },
-    sequence: seqProvider.getSequence.bind(seqProvider)
+    }
 });
 
 if(get.lat && get.lon) {
