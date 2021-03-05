@@ -1,7 +1,7 @@
 import MapManager from './map.js';
 import XHRPromise from './xhrpromise.js';
-import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
 import Dialog from './dialog.js';
+import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
 import OWTransition from './node_modules/openwanderer-jsapi-transitions/index.js';
 
 class OpenWandererApp {
@@ -27,7 +27,6 @@ class OpenWandererApp {
     }
 
     setupNavigator() {
-        OWTransition.init();
 
         this.navigator = new OpenWanderer.Navigator({
             api: { 
@@ -40,6 +39,7 @@ class OpenWandererApp {
             svgEffects: true,
             panoTransFunc: OWTransition.goTo.bind(OWTransition)
         });
+        OWTransition.init(this.navigator);
     }
 
     setupModes () {
