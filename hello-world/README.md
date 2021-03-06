@@ -7,39 +7,77 @@ This basic application illustrates how you can load a panorama with a given ID. 
 
 It is more intended as example code rather than a working and useful application. Please see the `basic` or `full` examples for working and usable applications.
 
-Licensing
----------
+How it works
+------------
 
-As of the first commit on October 10, 2020, the code is now licensed under the Lesser GNU General Public License, by agreement between both OpenWanderer repository owners (@mrAceT and @nickw). The exception is third-party code such as `geojson-path-finder` which is licensed separately, details in the relevant directories. This has been done to:
+As a "Hello World" application, it is quite simple. There is a server-side component, using the OpenWanderer [server API](https://github.com/openwanderer/server) and a client-side component (using the OpenWanderer [jsapi](https://github.com/openwanderer/jsapi).
 
-- ensure that any changes to OpenWanderer itself will remain Free and open source (if you change OpenWanderer, you must make the modified code available under a compatible free software license); 
-- but also allow proprietary applications to *use* OpenWanderer code.
+Looking at the server side component, `index.php`, this is extremely simple:
+```php
+<?php
+require 'vendor/autoload.php';
 
-Any further changes to the current OpenTrailView - OTV360; repo [here](https://gitlab.com/nickw1/opentrailview) will remain under the GPL v3.
+use \OpenWanderer\OpenWanderer;
+
+$app = OpenWanderer::createApp([
+	"auth" => false
+]);
+
+$app->run();
+?>
+```
+
+We simply create an OpenWanderer app and set the `auth` property to false, to indicate that we don't need authentication. See the [server API](https://github.com/openwanderer/server) for more details. This returns a [Slim](https://slimframework.com) application object which is then run.
+
+Moving onto the client-side component, `index.js` within the [js](js/) directory:
+```javascript
+import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
+
+const navigator = new OpenWanderer.Navigator({
+    api: { 
+        byId: 'panorama/{id}', 
+        panoImg: 'panorama/{id}.jpg',
+        sequenceUrl: 'sequence/{id}'
+    },
+});
+
+navigator.loadPanorama(1);
+```
+If you have not done so already, you may wish to look at the [examples in the jsapi repository](https://github.com/openwanderer/jsapi/tree/master/core/examples) which give more information on the basic `jsapi` classes.
+
+You need to install `openwanderer-jsapi` from NPM, see below. We first import the `OpenWanderer` object from the downloaded NPM package and then create an `OpenWanderer.Navigator` object. Note how, unlike the basic `jsapi` examples, we need to specify an `api` option when creating it. This specifies the server-side API endpoints that the client communicates with. These server-side API endpoints are automatically provided by the OpenWanderer server application, so you will not need to change these (however, if you want the `jsapi` to talk to some other back-end besides the OpenWanderer server, you can do). Considering these one-by-one:
+
+`byId`: this API endpoint supplies information about a panorama with a given ID as a JSON object, containing `lat`, `lon`, `ele` (elevation), `pan` (heading angle or yaw), `tilt` (pitch) and `roll`. 
+`panoImg`: this API endpoint supplies a panorama image with a given ID.
+`sequenceUrl`: this API endpoint retrieves a pano sequence with a given ID.
+
+There are other endpoints you can supply, such as `nearest/{lon}/{lat}` which will find the nearest panorama to a given longitude and latitude, but this is not needed for this particular application.
+
+Finally, we load the panorama with the ID of 1. This will load the first panorama and automatically show the sequence allowing you to navigate to the others.
 
 Building the application 
 ------------------------
 
-You need [PHP](https://php,net) installed on your system, and a web server of some kind, such as [Apache](https://apache.org). If you have a Linux system you can easily install these using your package management system. If running Windows you might want to consider an all-in-one package such as [XAMPP](https://www.apachefriends.org/download.html) which provides both PHP and Apache. You also need to install [PostGIS](https://postgis.net) as well as PostgreSQL.
+You need [PHP](https://php.net) installed on your system, and a web server of some kind, such as [Apache](https://apache.org). If you have a Linux system you can easily install these using your package management system. If running Windows you might want to consider an all-in-one package such as [XAMPP](https://www.apachefriends.org/download.html) which provides both PHP and Apache. You also need to install [PostGIS](https://postgis.net) as well as PostgreSQL.
 
-To setup the database please import `database.sql` into your database.
+To setup the database please import `setup-db.sql` into your database. This will setup the `panoramas` table with data describing the three panoramas included in the `panos` directory and setup the `sequence_panos` table with a sequence linking these three panoramas.
 
-Dependencies are managed by [Composer](https://getcomposer.org). Please use:
+You then need to install the PHP dependencies. Dependencies are managed by [Composer](https://getcomposer.org). Please ensure you have Composer installed and then run: 
 
 `composer install`
 
-to install the dependencies.
+to install the dependencies, where `composer` is the Composer executable. (You may need to run `php composer.phar` instead, depending on how you downloaded Composer.
 
 There is a `.env-example` file containing settings. You need to copy this to `.env` and modify the settings so that they are appropriate for your system.
 The settings in the `.env` file are:
 
-- `OTV_UPLOADS` - the directory where panorama files will be uploaded to.
+- `OTV_UPLOADS` - the directory where panorama files are stored. Leave this as `panos` as the panoramas are included with the example.
 - `MAX_FILE_SIZE` - the maximum file size to accept for panoramas, in MB. Should match the `php.ini` setting.
 - `DB_USER` - your database user.
 - `DB_DBASE` - the database holding the panoramas.
 - `BASE_PATH` (optional) - set to the path (relative to your server root) holding your OpenWanderer app. If omitted, it is assumed the app is in your server root.
 
-To build the app's front end you need to install the OpenWanderer `jsapi`, including the transitions plugin. These are now available as a package on npm: `openwanderer-jsapi` and `openwanderer-jsapi-transitions`, respectively. You can install both using npm: 
+Finally, to build the app's front end you need to install the OpenWanderer `jsapi`, including the transitions plugin. These are now available as a package on npm: `openwanderer-jsapi` and `openwanderer-jsapi-transitions`, respectively. You can install both using npm: 
 
 ```
 cd js

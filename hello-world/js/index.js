@@ -4,7 +4,7 @@ const navigator = new OpenWanderer.Navigator({
     api: { 
         byId: 'panorama/{id}', 
         panoImg: 'panorama/{id}.jpg',
-		sequenceUrl: 'sequence/{id}'
+        sequenceUrl: 'sequence/{id}'
     },
 });
 
