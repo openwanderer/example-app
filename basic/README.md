@@ -5,15 +5,38 @@ This is a basic example OpenWanderer web application, making use of the new Comp
 
 This basic application allows you to upload panorama sequences and navigate along existing sequences. You can also jump to a given panorama (by ID or nearest to a given latitude and longitude).
 
-Licensing
----------
+How the application works
+-------------------------
 
-As of the first commit on October 10, 2020, the code is now licensed under the Lesser GNU General Public License, by agreement between both OpenWanderer repository owners (@mrAceT and @nickw). The exception is third-party code such as `geojson-path-finder` which is licensed separately, details in the relevant directories. This has been done to:
+This basic example is the next natural step after the [Hello World](https://github.com/openwanderer/example-app/tree/master/hello-world) example. The PHP code is exactly the same as that example (it sets up a server with authentication disabled); however the JavaScript is more complex to allow for uploading a new pano sequence.
 
-- ensure that any changes to OpenWanderer itself will remain Free and open source (if you change OpenWanderer, you must make the modified code available under a compatible free software license); 
-- but also allow proprietary applications to *use* OpenWanderer code.
+To look at some key code: 
 
-Any further changes to the current OpenTrailView - OTV360; repo [here](https://gitlab.com/nickw1/opentrailview) will remain under the GPL v3.
+```javascript
+const navigator = new OpenWanderer.Navigator({
+    api: { 
+        byId: 'panorama/{id}', 
+        panoImg: 'panorama/{id}.jpg',
+        nearest: 'nearest/{lon}/{lat}'
+    }
+});
+
+if(get.lat && get.lon) {
+    navigator.findPanoramaByLonLat(get.lon, get.lat);
+} else {
+    navigator.loadPanorama(get.id || 1);
+}
+```
+
+The key new feature is the `nearest` API endpoint, this was not needed for the `hello-world` example. This returns JSON describing the panorama nearest to the given longitude and latitude. This is needed if the user supplies the latitude and longitude as `GET` data; the `findPanoramaByLonLat()` method of `OpenWanderer.Navigator` uses this API endpoint to find the nearest panorama to the given location.
+
+The rest of [the example](https://github.com/openwanderer/example-app/blob/master/basic/js/index.js) largely uses inbuilt file and AJAX APIs to upload panorama files to the server, and will not be explained in depth here as it's quite easy, hopefully, to follow if you are familiar with these APIs. Note how it uses two API endpoints supplied automatically by the OpenWanderer server:
+
+`panorama/upload` (method `POST`) - uploads a given panorama. Takes the panorama file as a `file` type with a name of `file`, and returns a JSON object containing the ID of the given panorama within the `id` field. It is also possible for the JSON object to contain a `warning` field which you should check; if there is an `error` field in the JSON it means that the file was not uploaded successfully.
+
+`sequence/create` (method `POST`) - reads a JSON array of panorama IDs in the request body, and creates a sequence from them. The sequence ID is returned in plain text. 
+
+
 
 Building the application 
 ------------------------
