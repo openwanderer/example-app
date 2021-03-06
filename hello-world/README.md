@@ -3,14 +3,12 @@ OpenWanderer Hello World application
 
 This is a 'hello world' example OpenWanderer web application, making use of the new Composer package for the server `openwanderer/openwanderer`. 
 
-This basic application illustrates how you can load a panorama with a given ID. It *assumes that you have a server setup already with panoramas and panorama sequences*, and that you have a pano with an ID of 1 belonging to a sequence. If you do, it will load the pano with the ID of 1 and show you the sequence that it belongs to, and allows you to navigate along the sequence. 
-
-It is more intended as example code rather than a working and useful application. Please see the `basic` or `full` examples for working and usable applications.
+This basic application illustrates how you can load a panorama with a given ID and navigate along a sequence.
 
 How it works
 ------------
 
-As a "Hello World" application, it is quite simple. There is a server-side component, using the OpenWanderer [server API](https://github.com/openwanderer/server) and a client-side component (using the OpenWanderer [jsapi](https://github.com/openwanderer/jsapi).
+As a "Hello World" application, it is quite simple. There is a server-side component, using the OpenWanderer [server API](https://github.com/openwanderer/server) and a client-side component, using the OpenWanderer [jsapi](https://github.com/openwanderer/jsapi).
 
 Looking at the server side component, `index.php`, this is extremely simple:
 ```php
@@ -47,9 +45,9 @@ If you have not done so already, you may wish to look at the [examples in the js
 
 You need to install `openwanderer-jsapi` from NPM, see below. We first import the `OpenWanderer` object from the downloaded NPM package and then create an `OpenWanderer.Navigator` object. Note how, unlike the basic `jsapi` examples, we need to specify an `api` option when creating it. This specifies the server-side API endpoints that the client communicates with. These server-side API endpoints are automatically provided by the OpenWanderer server application, so you will not need to change these (however, if you want the `jsapi` to talk to some other back-end besides the OpenWanderer server, you can do). Considering these one-by-one:
 
-`byId`: this API endpoint supplies information about a panorama with a given ID as a JSON object, containing `lat`, `lon`, `ele` (elevation), `pan` (heading angle or yaw), `tilt` (pitch) and `roll`. 
-`panoImg`: this API endpoint supplies a panorama image with a given ID.
-`sequenceUrl`: this API endpoint retrieves a pano sequence with a given ID.
+- `byId`: this API endpoint supplies information about a panorama with a given ID as a JSON object, containing `lat`, `lon`, `ele` (elevation), `pan` (heading angle or yaw), `tilt` (pitch) and `roll`. 
+- `panoImg`: this API endpoint supplies a panorama image with a given ID.
+- `sequenceUrl`: this API endpoint retrieves a pano sequence with a given ID.
 
 There are other endpoints you can supply, such as `nearest/{lon}/{lat}` which will find the nearest panorama to a given longitude and latitude, but this is not needed for this particular application.
 
