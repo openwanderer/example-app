@@ -18,6 +18,8 @@ class OpenWandererApp {
             this.lat = lat;
             if(this.mapMgr) {
                 this.mapMgr.setView([lat,lon]/*, zoom*/);
+                const zoom = this.mapMgr.map.getZoom();
+                window.history.pushState  ({lat:lat, lon:lon, zoom:zoom},"OpenTrailView", `${window.location.href.replace('#','').split("?")[0]}?lat=${lat}&lon=${lon}&zoom=${zoom}`);
             }
         });
         this.setupSignup();

@@ -1,7 +1,7 @@
 {
  "name": "openwanderer-app",
  "description": "The OpenWanderer demo web app",
- "version": "0.0.15",
+ "version": "0.0.16",
  "dependencies": {
   "openwanderer-jsapi": "^0.0.9",
   "openwanderer-jsapi-transitions": "^0.0.4",
