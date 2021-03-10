@@ -11,7 +11,7 @@ class MapManager {
         this.setupLeafletMap(options.zoom || 16);
         this.onPanoChange = options.onPanoChange;
         this.onMapChange = options.onMapChange || null;
-        this.newPanos = {};
+        this.panoMarkers = {};
         this.initialised = false;
     }
 
@@ -23,10 +23,14 @@ class MapManager {
             this.layer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {attribution: 'Map data (c)OpenStreetMap contributors, ODBL; contours SRTM | Map display: &copy; OpenTopoMap (CC-By-SA)', maxZoom: 20, maxNativeZoom: 16});
             this.layer.addTo(this.map);
             this.map.on("dragend", e=> { 
+                const lat = this.map.getCenter().lat.toFixed(4);
+                const lon = this.map.getCenter().lng.toFixed(4);
+                const zoom= this.map.getZoom();
                 this.loadPanoramas();
                 if(this.onMapChange) {
                     this.onMapChange(this.map.getCenter(), this.map.getZoom());
                 }
+                window.history.pushState  ({lat:lat, lon:lon, zoom: zoom},"OpenTrailView", `${window.location.href.replace('#','').split("?")[0]}?lat=${lat}&lon=${lon}&zoom=${zoom}`);
             });
             this.map.on('zoomstart', e=> { this.oldZoom = e.target.getZoom();});
             this.setupGeojsonLayer();
@@ -34,14 +38,6 @@ class MapManager {
                 if(this.onMapChange) {
                     this.onMapChange(e.target.getCenter(), e.target.getZoom());
                 }
-            });
-            this.map.on("move", e=> {
-                var lat = this.map.getCenter().lat.toFixed(4);
-                var lon = this.map.getCenter().lng.toFixed(4);
-                var zoom= this.map.getZoom();
-
-                window.history.pushState  ({lat:lat, lon:lon, zoom: zoom},"OpenTrailView", `${window.location.href.replace('#','').split("?")[0]}?lat=${lat}&lon=${lon}&zoom=${zoom}`);
-                
             });
         }
     }
@@ -95,9 +91,19 @@ class MapManager {
 
             this.geojsonLayer = L.geoJSON(null, {
                 pointToLayer: (f,latlng)=> {
-                    var p = L.marker(latlng, {icon: cameraIcon, rotationAngle: parseInt(f.properties.pan), draggable:true} );
-                    p.setRotationAngle(parseFloat(f.properties.pan));
+                    const heading = parseFloat(f.properties.poseheadingdegrees);
+                    const rotationAngle = (heading + parseFloat(f.properties.pancorrection)) % 360;
+                    const p = L.marker(latlng, {icon: cameraIcon, rotationAngle: rotationAngle, draggable:true} );
+
+                    //p.setRotationAngle(rotationAngle);
+                    p.rotationProperties = {
+                        poseheadingdegrees: heading,
+                        tilt: f.properties.tiltcorrection,
+                        roll: f.properties.rollcorrection
+                    };
+                        
                     this.markerClusterGroup.addLayer(p);
+                    this.panoMarkers[f.properties.id] = p;
                     return p;
                 },
                 onEachFeature: (f,layer)=> {
@@ -171,50 +177,21 @@ class MapManager {
             this.map.dragging.enable();
             fetch(`panorama/${f.properties.id}/rotate`,
                 { body: JSON.stringify(
-                    {pan:layer.options.rotationAngle}
+                    {pan:(layer.options.rotationAngle - layer.rotationProperties.poseheadingdegrees) % 360, tilt: layer.rotationProperties.tilt, roll: layer.rotationProperties.roll }
                 ), 
                 headers: { 'Content-Type': 'application/json'}, 
                 method: 'POST'}).
                 then(response=>response.text()).
                 then(txt=>{
-                    this.onPanoChange(f.properties.id, {pan: layer.options.rotationAngle});
+                    this.onPanoChange(f.properties.id, {pan: (layer.options.rotationAngle - layer.poseheadingdegrees) % 360, tilt: layer.rotationProperties.tilt, roll: layer.rotationProperties.roll});
                 });
         }
     }
 
-    addNewPano(id, lat, lon) {
-        var cameraIcon = L.icon({
-                iconUrl: 'images/camera.png',
-                iconSize:[24,24],
-                iconAnchor:[12,12],
-                popupAnchor:[8,8]
-            });
-        if(this.newPanos[id]) {
-            this.map.removeLayer(this.newPanos[id].icon);
-            this.map.removeLayer(this.newPanos[id].circle);
+    rotatePanoIcon(id, ang) {
+        if(this.panoMarkers[id]) {
+            this.panoMarkers[id].setRotationAngle((this.panoMarkers[id].options.rotationAngle + ang) % 360);
         }
-        var latlng = [lat, lon];
-        var p = L.marker(latlng, {icon: cameraIcon} ).addTo(this.map);
-        var circle = L.circle(latlng, { radius: 30, color:'#ff8800',opacity:0.5}).addTo(this.map);
-        this.doSelectNewPano(latlng);
-        this.newPanos[id] = { icon: p, circle: circle };
-        this.map.addLayer(p);
-    }
-
-    selectNewPano(id) {
-        if(this.newPanos[id]) {
-            var latlng = this.newPanos[id].icon.getLatLng();
-            this.doSelectNewPano(latlng);
-            this.map.setView(latlng);
-        }
-    }
-
-    doSelectNewPano(latlng) {
-        if(this.selectedNewPano) {
-            this.map.removeLayer(this.selectedNewPano);
-        }
-        this.selectedNewPano = L.circle(latlng, { radius: 50, color: 'red', fillColor: 'red', opacity:0.5}).addTo(this.map);
-            
     }
 
     deletePano(f, layer) {
@@ -228,17 +205,6 @@ class MapManager {
                     alert(`Error deleting panorama: code ${response.status}`); 
                 }
             });
-    }
-
-    removeNewPanos() {
-        for (var i in this.newPanos) {
-            this.map.removeLayer(this.newPanos[i].icon);
-            this.map.removeLayer(this.newPanos[i].circle);
-        }
-        this.newPanos = {};
-        if(this.selectedNewPano) {
-            this.map.removeLayer(this.selectedNewPano);
-        }
     }
 
     clearMarkers() {

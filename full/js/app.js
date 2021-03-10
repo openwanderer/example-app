@@ -3,6 +3,8 @@ import XHRPromise from './xhrpromise.js';
 import Dialog from './dialog.js';
 import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
 import OWTransition from './node_modules/openwanderer-jsapi-transitions/index.js';
+//import OpenWanderer from '../jsapi/core/index.js';
+//import OWTransition from '../jsapi/transitions/index.js';
 
 class OpenWandererApp {
     constructor(zoom, resize) {
@@ -299,10 +301,13 @@ class OpenWandererApp {
 
     rotatePano(ang, component) {
         this.navigator.viewer.rotate(ang, component);
+        if(component == 'pan') {
+            this.mapMgr.rotatePanoIcon(this.navigator.curPanoId, ang);
+        }
     }
 
     saveRotation() {
-        const orientations = Object.assign({}, this.navigator.viewer.orientation);
+        const orientations = Object.assign({}, this.navigator.viewer.orientationCorrection);
         Object.keys(orientations).map ( k => { 
             orientations[k] *= 180/Math.PI; 
         });
@@ -397,7 +402,6 @@ class OpenWandererApp {
                     this.isadmin = json.isadmin;
                     this.loginDlg.hide();
                     this.onLoginStateChange();
-                    this.checkAuthorised(this.navigator.curPanoId);
                 }
              })
             .catch(e => { 
