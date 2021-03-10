@@ -1,6 +1,6 @@
 # OpenWanderer server apps
 
-Within this repository are two example apps making use of both the client `jsapi` and the server.
+Within this repository are three example apps making use of both the client `jsapi` and the server.
 
 - `hello-world` : a Hello World OpenWanderer server app. Contains the absolute basic PHP and JavaScript code to view panoramas by ID and navigate along sequences.
 

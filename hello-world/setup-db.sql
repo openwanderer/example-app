@@ -1,3 +1,4 @@
+
 --
 -- PostgreSQL database dump
 --
@@ -30,11 +31,11 @@ CREATE TABLE public.panoramas (
     username integer DEFAULT 0,
     "timestamp" integer,
     userid character varying(255),
-    status integer,
     ele double precision DEFAULT 0,
-    tilt double precision DEFAULT 0,
-    roll double precision DEFAULT 0,
-    pan double precision DEFAULT 0
+    tiltcorrection double precision DEFAULT 0,
+    rollcorrection double precision DEFAULT 0,
+    pancorrection double precision DEFAULT 0,
+    poseheadingdegrees double precision DEFAULT 0
 );
 
 
@@ -72,13 +73,21 @@ ALTER TABLE ONLY public.panoramas ALTER COLUMN id SET DEFAULT nextval('public.pa
 -- Data for Name: panoramas; Type: TABLE DATA; Schema: public; Owner: gisuser
 --
 
-COPY public.panoramas (id, the_geom, authorised, username, "timestamp", userid, status, ele, tilt, roll, pan) FROM stdin;
-1	0101000020E61000001BB7F571F895F6BF1DC9E53FA4774940	1	0	\N	1	2	58	0	0	-178
-2	0101000020E61000002F0000808895F6BF59725D1398774940	1	0	\N	1	2	56	-20	0	175
-3	0101000020E61000007C0000C03995F6BFD8659DAC89774940	1	0	\N	1	2	55	-5	0	170
+COPY public.panoramas (id, the_geom, authorised, username, "timestamp", userid, ele, tiltcorrection, rollcorrection, pancorrection, poseheadingdegrees) FROM stdin;
+1	0101000020E61000001BB7F571F895F6BF1DC9E53FA4774940	1	0	\N	1	58	0	0	120	45
+2	0101000020E61000002F0000808895F6BF59725D1398774940	1	0	\N	1	56	0	0	153	22.5
+3	0101000020E61000007C0000C03995F6BFD8659DAC89774940	1	0	\N	1	55	-20	0	56	112.5
 \.
 
 
+--
+-- Name: panoramas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gisuser
+--
+
+
+--
+-- PostgreSQL database dump complete
+--
 --
 -- Name: panoramas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gisuser
 --
