@@ -1,4 +1,3 @@
-import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
 import XHRPromise from './xhrpromise.js';
 
 const parts = window.location.href.split('?');     
