@@ -62,13 +62,6 @@ The settings in the `.env` file are:
 - `DB_DBASE` - the database holding the panoramas.
 - `BASE_PATH` (optional) - set to the path (relative to your server root) holding your OpenWanderer app. If omitted, it is assumed the app is in your server root.
 
-To build the app's front end you need to install the OpenWanderer `jsapi`, including the transitions plugin. These are now available as a package on npm: `openwanderer-jsapi` and `openwanderer-jsapi-transitions`, respectively. You can install both using npm: 
-
-```
-cd js
-npm run build
-```
-
 By default it is assumed that the server is installed in the document root, otherwise you will have to set the base path in your `.env` file. To help with testing, you might want to configure a site `openwanderer` and setup a virtual host. 
 For example see these [Digital Ocean docs](https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-18-04)
 

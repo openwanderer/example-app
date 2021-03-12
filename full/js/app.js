@@ -1,8 +1,8 @@
 import MapManager from './map.js';
 import XHRPromise from './xhrpromise.js';
 import Dialog from './dialog.js';
-import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
-import OWTransition from './node_modules/openwanderer-jsapi-transitions/index.js';
+//import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
+//import OWTransition from './node_modules/openwanderer-jsapi-transitions/index.js';
 //import OpenWanderer from '../jsapi/core/index.js';
 //import OWTransition from '../jsapi/transitions/index.js';
 
@@ -31,7 +31,8 @@ class OpenWandererApp {
     }
 
     setupNavigator() {
-
+		console.log(OpenWanderer);
+		console.log(OWTransition);
         this.navigator = new OpenWanderer.Navigator({
             api: { 
                 byId: 'panorama/{id}', 
@@ -41,9 +42,9 @@ class OpenWandererApp {
             },
             splitPath: true,
             svgEffects: true,
-            panoTransFunc: OWTransition.goTo.bind(OWTransition)
+            panoTransFunc: OWTransition.Transition.goTo.bind(OWTransition.Transition)
         });
-        OWTransition.init(this.navigator);
+        OWTransition.Transition.init(this.navigator);
     }
 
     setupModes () {

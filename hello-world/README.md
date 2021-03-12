@@ -29,7 +29,6 @@ We simply create an OpenWanderer app and set the `auth` property to false, to in
 
 Moving onto the client-side component, `index.js` within the [js](js/) directory:
 ```javascript
-import OpenWanderer from './node_modules/openwanderer-jsapi/index.js';
 
 const navigator = new OpenWanderer.Navigator({
     api: { 
@@ -43,7 +42,7 @@ navigator.loadPanorama(1);
 ```
 If you have not done so already, you may wish to look at the [examples in the jsapi repository](https://github.com/openwanderer/jsapi/tree/master/core/examples) which give more information on the basic `jsapi` classes.
 
-You need to install `openwanderer-jsapi` from NPM, see below. We first import the `OpenWanderer` object from the downloaded NPM package and then create an `OpenWanderer.Navigator` object. Note how, unlike the basic `jsapi` examples, we need to specify an `api` option when creating it. This specifies the server-side API endpoints that the client communicates with. These server-side API endpoints are automatically provided by the OpenWanderer server application, so you will not need to change these (however, if you want the `jsapi` to talk to some other back-end besides the OpenWanderer server, you can do). Considering these one-by-one:
+We first create an `OpenWanderer.Navigator` object. Note how, unlike the basic `jsapi` examples, we need to specify an `api` option when creating it. This specifies the server-side API endpoints that the client communicates with. These server-side API endpoints are automatically provided by the OpenWanderer server application, so you will not need to change these (however, if you want the `jsapi` to talk to some other back-end besides the OpenWanderer server, you can do). Considering these one-by-one:
 
 - `byId`: this API endpoint supplies information about a panorama with a given ID as a JSON object, containing `lat`, `lon`, `ele` (elevation), `pan` (heading angle or yaw), `tilt` (pitch) and `roll`. 
 - `panoImg`: this API endpoint supplies a panorama image with a given ID.
@@ -76,13 +75,6 @@ The settings in the `.env` file are:
 - `DB_USER` - your database user.
 - `DB_DBASE` - the database holding the panoramas.
 - `BASE_PATH` (optional) - set to the path (relative to your server root) holding your OpenWanderer app. If omitted, it is assumed the app is in your server root.
-
-Finally, to build the app's front end you need to install the OpenWanderer `jsapi`, including the transitions plugin. These are now available as a package on npm: `openwanderer-jsapi` and `openwanderer-jsapi-transitions`, respectively. You can install both using npm: 
-
-```
-cd js
-npm run build
-```
 
 By default it is assumed that the server is installed in the document root, otherwise you will have to set the base path in your `.env` file. To help with testing, you might want to configure a site `openwanderer` and setup a virtual host. 
 For example see these [Digital Ocean docs](https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-18-04)

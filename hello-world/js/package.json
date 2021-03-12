@@ -1,8 +1,0 @@
-{
- "name": "openwanderer-vbasic-app",
- "description": "Absolute basic OpenWanderer demo app",
- "version": "0.0.2",
- "dependencies": {
-  "openwanderer-jsapi": "^0.0.9"
- }
-}
