@@ -18,7 +18,7 @@ require 'vendor/autoload.php';
 use \OpenWanderer\OpenWanderer;
 
 $app = OpenWanderer::createApp([
-	"auth" => false
+    "auth" => false
 ]);
 
 $app->run();
@@ -59,6 +59,12 @@ You need [PHP](https://php.net) installed on your system, and a web server of so
 
 A good resource for instructions on installing PostGIS is [on the OpenStreetMap wiki](https://wiki.openstreetmap.org/wiki/PostGIS/Installation). Even though these instructions relate to setting up a Mapnik map tile server, they are equally applicable for setting up a database for OpenWanderer. 
 
+You also need to ensure that the PHP PostgreSQL module is installed, e.g. on Ubuntu 18.04:
+```
+sudo apt-get update
+sudo apt-get install php7.2-pgsql
+```
+
 To setup the database please import `setup-db.sql` into your database. This will setup the `panoramas` table with data describing the three panoramas included in the `panos` directory and setup the `sequence_panos` table with a sequence linking these three panoramas.
 
 You then need to install the PHP dependencies. Dependencies are managed by [Composer](https://getcomposer.org). Please ensure you have Composer installed and then run: 
@@ -85,4 +91,27 @@ If you do this and setup a site with a name of e.g. `openwanderer` you should be
 
 Alternatively, if you do not want to install openwanderer to the document root and do not want to use a virtual host, you need to tell Slim (the PHP framework used) the base path for your application. You can set the base path by editing the `.env` file, as mentioned above. 
 
+Instructing Apache to read the .htaccess file
+---------------------------------------------
 
+By default, Apache may not read the `.htaccess` file, which redirects all
+requests to `index.php`; the result of this is you will get 404 Not Found errors with the server endpoints. You need to perform two steps for this:
+
+- firstly, enable `mod_rewrite`, the URL-rewriting module, e.g:
+
+```
+sudo a2enmod rewrite
+```
+
+- secondly, change the main Apache configuration file (e.g. `/etc/apache/apache2.conf`) to allow settings to be overridden with `.htaccess`. Open the file and find the section which looks like this:
+```
+<Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+```
+Change the `AllowOverride None` to `AllowOverride All` and then restart Apache, e.g:
+```
+sudo service apache2 restart
+```
