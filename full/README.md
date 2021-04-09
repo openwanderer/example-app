@@ -77,6 +77,16 @@ Change the `AllowOverride None` to `AllowOverride All` and then restart Apache, 
 sudo service apache2 restart
 ```
 
+Installing JavaScript dependencies
+----------------------------------
+
+The application depends on one JavaScript dependency installed via NPM: `leaflet-rotatedmarker`. To install:
+
+```
+cd js
+npm install
+```
+
 Application features
 --------------------
 
