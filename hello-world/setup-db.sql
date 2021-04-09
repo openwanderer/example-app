@@ -39,7 +39,6 @@ CREATE TABLE public.panoramas (
 );
 
 
-ALTER TABLE public.panoramas OWNER TO gisuser;
 
 --
 -- Name: panoramas_id_seq; Type: SEQUENCE; Schema: public; Owner: gisuser
@@ -53,7 +52,6 @@ CREATE SEQUENCE public.panoramas_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.panoramas_id_seq OWNER TO gisuser;
 
 --
 -- Name: panoramas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gisuser
@@ -129,7 +127,6 @@ CREATE TABLE public.sequence_panos (
 );
 
 
-ALTER TABLE public.sequence_panos OWNER TO gisuser;
 
 --
 -- Name: sequence_panos_id_seq; Type: SEQUENCE; Schema: public; Owner: gisuser
@@ -143,7 +140,6 @@ CREATE SEQUENCE public.sequence_panos_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.sequence_panos_id_seq OWNER TO gisuser;
 
 --
 -- Name: sequence_panos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gisuser
