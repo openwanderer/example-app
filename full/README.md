@@ -1,7 +1,7 @@
 OpenWanderer example application 
 ================================
 
-This is an example OpenWanderer web application, making use of the new Composer package for the server `openwanderer/openwanderer`
+This is an example OpenWanderer web application, making use of the new Composer package for the server `openwanderer/openwanderer` and the NPM package `openwanderer-app`, which provides a full OpenWanderer application widget.
 
 Licensing
 ---------
@@ -77,25 +77,18 @@ Change the `AllowOverride None` to `AllowOverride All` and then restart Apache, 
 sudo service apache2 restart
 ```
 
-Installing JavaScript dependencies
-----------------------------------
-
-The application depends on one JavaScript dependency installed via NPM: `leaflet-rotatedmarker`. To install:
-
-```
-cd js
-npm install
-```
-
 Application features
 --------------------
 
-The application now provides a wide range of functionality, almost equivalent to OpenTrailView. You can: 
+This example application shows the use of the `openwanderer-app` NPM package, which provides a complete OpenWanderer application widget with a wide range of functionality. You can:
 
 - view a given panorama;
 - upload a set of panoramas and create a sequence from them;
 - view and navigate a sequence, for those panoramas which belong to a sequence.
 - view panorama locations on a map interface; 
-- rotate panoramas, both via the map (pan only) and via an interface in panorama mode, if you are logged in (pan, tilt and roll).
+- rotate panoramas, both via the map (pan only) and via an interface in panorama mode, if you are logged in (pan, tilt and roll);
+- signup, login and logout (login functionality is needed to upload and modify panoramas).
 
-You now need to signup and login to upload and modify panoramas.
+Note that although the widget is customisable (in terms of icons used for certain operations, for example), it assumes certain defaults, particularly regarding the icons used and the page elements to place the various controls. The `index.html` provides the default controls. The needed default icons are provided in the `images` directory; see the README in there for author information for individual icons.
+
+More documentation about `openwanderer-app`, its defaults, and how to customise it will appear in due course.

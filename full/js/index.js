@@ -1,5 +1,3 @@
-import OpenWandererApp from './app.js';
-
 const parts = window.location.href.split('?');     
 const get = { };
 
@@ -14,7 +12,7 @@ if(parts.length==2) {
     }     
 }    
 
-const app = new OpenWandererApp();
+const app = new OWApp.App();
 
 if(get.lat && get.lon) {
     app.navigator.findPanoramaByLonLat(get.lon, get.lat);

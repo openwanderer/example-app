@@ -124,14 +124,14 @@ em {
     }
 
 
-    #dlgSignup {
+    #ow_dlgSignup {
         left: 25%;
         top: 10%;
         width: 600px;
         height: 400px;
     }
 
-    #dlgLogin {
+    #ow_dlgLogin {
         left: 37%;
         top: 25%;
         width: 25%;
@@ -190,7 +190,7 @@ em {
         position: relative;
     }
 
-    #search {
+    #ow_search {
         background-color: #0000a0;
     }
 
@@ -329,18 +329,18 @@ input[type=text], input[type=password] {
     text-align: left;
 }
 
-#search {
+#ow_search {
     padding: 5px;
     margin-bottom: 0px;
 }
 
-#searchResults {
+#ow_searchResults {
     background-color: white;
     color: black;
     margin-top: 0px;
 }
 
-#searchResults a {
+#ow_searchResults a {
     color: blue;
     margin-bottom: 5px;
 }
@@ -350,11 +350,11 @@ input[type=text], input[type=password] {
     width: calc(100% - 40px);
 }
 
-#imageContainer {
+#ow_imageContainer {
     float: right;
 }
 
-#searchBtn {
+#ow_searchBtn {
     right: 0px;
 }
 
