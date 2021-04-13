@@ -12,7 +12,26 @@ if(parts.length==2) {
     }     
 }    
 
-const app = new OWApp.App();
+const app = new OWApp.App({
+    controlIcons: {
+        'select': 'images/cursor-default-click.png',
+        'rotate': 'images/baseline_rotate_right_white_18dp.png',    
+        'drag'  : 'images/drag-variant.png',
+        'delete': 'images/baseline_delete_white_18dp.png',
+        'search': 'images/search.png',
+        'switchMode' : [
+            'images/baseline_panorama_white_18dp.png',
+            'images/baseline_map_white_18dp.png',
+        ]
+    },
+    cameraIcon: 'images/camera.png',
+    loginContainer: 'loginContainer',
+    controlContainer: 'controlContainer',
+    searchContainer: 'searchContainer',
+    rotateControlsContainer: 'rotateControlsContainer',
+    uploadContainer: 'uploadContainer',
+    dialogParent: 'main'
+});
 
 if(get.lat && get.lon) {
     app.navigator.findPanoramaByLonLat(get.lon, get.lat);
