@@ -33,6 +33,16 @@ const app = new OWApp.App({
     dialogParent: 'main'
 });
 
+// Illustrating login event handling
+app.on("login", user => {
+    alert(`Logged in with ID ${user.userid}, name ${user.username}, admin status ${user.isadmin}!`);
+});
+
+app.on('logout', () => {
+    alert('Logged out!');
+});
+
+
 if(get.lat && get.lon) {
     app.navigator.findPanoramaByLonLat(get.lon, get.lat);
 } else {
