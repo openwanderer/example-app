@@ -13,8 +13,8 @@ As of the first commit on October 10, 2020, the code is now licensed under the L
 
 Any further changes to the current OpenTrailView - OTV360; repo [here](https://gitlab.com/nickw1/opentrailview) will remain under the GPL v3.
 
-Building the application 
-------------------------
+Building the application - server side 
+--------------------------------------
 
 You need [PHP](https://php.net) installed on your system, and a web server of some kind, such as [Apache](https://apache.org). If you have a Linux system you can easily install these using your package management system. If running Windows you might want to consider an all-in-one package such as [XAMPP](https://www.apachefriends.org/download.html) which provides both PHP and Apache. You also need to install [PostGIS](https://postgis.net) as well as PostgreSQL.
 
@@ -46,7 +46,7 @@ The settings in the `.env` file are:
 By default it is assumed that the server is installed in the document root, otherwise you will have to set the base path in your `.env` file. To help with testing, you might want to configure a site `openwanderer` and setup a virtual host. 
 For example see these [Digital Ocean docs](https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-18-04)
 
-If you do this and setup a site with a name of e.g. `openwanderer` you should be able to view the application via:
+If you do this and setup a site with a name of e.g. `openwanderer` you should be able to view the application (once the client-side has been built, see below) via:
 
 `http://openwanderer/`
 
@@ -75,6 +75,18 @@ sudo a2enmod rewrite
 Change the `AllowOverride None` to `AllowOverride All` and then restart Apache, e.g:
 ```
 sudo service apache2 restart
+```
+
+Building the app (client-side)
+------------------------------
+
+As well as building the server, you need to build the client-side code, though this is quick and straightforward. A `package.json` is supplied. You need [node.js](https://nodejs.org) and specifically `npm` installed on your system. Change directory to `js` and then install the dependencies with:
+```
+npm install
+```
+and build the client-side with Webpack:
+```
+npx webpack
 ```
 
 Application features

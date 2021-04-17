@@ -1,3 +1,5 @@
+import * as OWApp from 'openwanderer-app';
+
 const parts = window.location.href.split('?');     
 const get = { };
 
