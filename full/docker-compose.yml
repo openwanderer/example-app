@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+
+  db:
+    image: kartoza/postgis:13
+    environment:
+      POSTGRES_USER: "gisuser"
+      POSTGRES_PASS: "gisuser_pass"
+      POSTGRES_DBNAME: "otv"
+    volumes:
+      - ./data/db:/var/lib/postgresql
+      - ./:/docker-entrypoint-initdb.d/ # So the lock file for db init can get persisted. See https://github.com/kartoza/docker-postgis/issues/300
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql:ro
