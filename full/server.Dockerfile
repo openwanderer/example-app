@@ -35,3 +35,6 @@ COPY --from=frontend /app/dist/ /var/www/html/js/dist/
 COPY ./css/ /var/www/html/css/
 COPY ./images /var/www/html/images/
 COPY ./views/ /var/www/html/views/
+
+COPY ./openwanderer-php.ini ./openwanderer-php.ini
+RUN cp ./openwanderer-php.ini "$PHP_INI_DIR/conf.d/"
