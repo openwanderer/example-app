@@ -10,7 +10,7 @@ services:
     environment:
       APACHE_RUN_USER: "#1000"
       APACHE_RUN_GROUP: "#1000"
-      OTV_UPLOADS: "/var/www/html/panos"
+      OTV_UPLOADS: "/var/www/html/panoramas"
       MAX_FILE_SIZE: 8
       DB_HOST: "db"
       DB_USER: "gisuser"
@@ -19,7 +19,7 @@ services:
     volumes:
       - ./apache2.conf:/etc/apache2/apache2.conf:ro
       - ./.htaccess:/var/www/html/.htaccess:ro
-      - ./data/panoramas:/var/www/html/panos
+      - ./data/panoramas:/var/www/html/panoramas
 
   db:
     image: kartoza/postgis:13
