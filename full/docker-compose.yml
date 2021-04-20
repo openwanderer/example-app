@@ -1,6 +1,26 @@
 version: "3.4"
 services:
 
+  server:
+    build:
+      context: ./
+      dockerfile: server.Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      APACHE_RUN_USER: "#1000"
+      APACHE_RUN_GROUP: "#1000"
+      OTV_UPLOADS: "/var/www/html/panos"
+      MAX_FILE_SIZE: 8
+      DB_HOST: "db"
+      DB_USER: "gisuser"
+      DB_PASS: "gisuser_pass"
+      DB_DBASE: "otv"
+    volumes:
+      - ./apache2.conf:/etc/apache2/apache2.conf:ro
+      - ./.htaccess:/var/www/html/.htaccess:ro
+      - ./data/panoramas:/var/www/html/panos
+
   db:
     image: kartoza/postgis:13
     environment:
