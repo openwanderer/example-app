@@ -17,7 +17,7 @@ services:
       DB_PASS: "gisuser_pass"
       DB_DBASE: "otv"
     volumes:
-      - ./apache2.conf:/etc/apache2/apache2.conf:ro
+      - ./openwanderer-apache2.conf:/etc/apache2/conf-enabled/openwanderer-apache2.conf:ro
       - ./.htaccess:/var/www/html/.htaccess:ro
       - ./data/panoramas:/var/www/html/panoramas
 
