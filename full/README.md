@@ -101,7 +101,7 @@ Start up the stack by running
 docker-compose up
 ```
 
-The panorama-images as well the database-files automatically get mounted to your local filesystem under the `./data`-folder. Also note the `.entry_point.lock`-file that gets created once the database has been initialized. In case you'd like to clear the `./data`-folder to start from a fresh setup, don't forget to remove `.entry_point.lock` too.
+The panorama-images as well the database-files automatically get mounted to your local file-system under the `./data`-folder. Note that a `.entry_point.lock`-file gets created once the database is initialized. When clearing the `./data`-folder to start from a fresh setup, don't forget to remove `.entry_point.lock` too.
 
 Application features
 --------------------
