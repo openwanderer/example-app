@@ -1,0 +1,33 @@
+version: "3.4"
+services:
+
+  server:
+    build:
+      context: ./
+      dockerfile: server.Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      APACHE_RUN_USER: "#1000"
+      APACHE_RUN_GROUP: "#1000"
+      OTV_UPLOADS: "/var/www/html/panoramas"
+      MAX_FILE_SIZE: 8
+      DB_HOST: "db"
+      DB_USER: "gisuser"
+      DB_PASS: "gisuser_pass"
+      DB_DBASE: "otv"
+    volumes:
+      - ./openwanderer-apache2.conf:/etc/apache2/conf-enabled/openwanderer-apache2.conf:ro
+      - ./.htaccess:/var/www/html/.htaccess:ro
+      - ./data/panoramas:/var/www/html/panoramas
+
+  db:
+    image: kartoza/postgis:13
+    environment:
+      POSTGRES_USER: "gisuser"
+      POSTGRES_PASS: "gisuser_pass"
+      POSTGRES_DBNAME: "otv"
+    volumes:
+      - ./data/db:/var/lib/postgresql
+      - ./:/docker-entrypoint-initdb.d/ # So the lock file for db init can get persisted. See https://github.com/kartoza/docker-postgis/issues/300
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql:ro
