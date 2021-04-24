@@ -6,7 +6,7 @@ services:
       context: ./
       dockerfile: server.Dockerfile
     ports:
-      - "80:80"
+      - "8888:80"
     environment:
       APACHE_RUN_USER: "#1000"
       APACHE_RUN_GROUP: "#1000"
