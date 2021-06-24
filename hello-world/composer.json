@@ -1,5 +1,5 @@
 {
     "require": {
-        "openwanderer/openwanderer": "^0.1.0"
+        "openwanderer/openwanderer": "^0.1.4"
     }
 }
