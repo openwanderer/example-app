@@ -8,7 +8,7 @@ This basic application allows you to upload panorama sequences and navigate alon
 How the application works
 -------------------------
 
-This basic example is the next natural step after the [Hello World](https://github.com/openwanderer/example-app/tree/master/hello-world) example. The PHP code is exactly the same as that example (it sets up a server with authentication disabled); however the JavaScript is more complex to allow for uploading a new pano sequence.
+This basic example is the next natural step after the [Hello World](https://github.com/openwanderer/example-app/tree/master/php-server/hello-world) example. The PHP code is exactly the same as that example (it sets up a server with authentication disabled); however the JavaScript is more complex to allow for uploading a new pano sequence.
 
 To look at some key code: 
 

@@ -2,7 +2,7 @@
 
 Within this repository are three example apps making use of both the client `jsapi` and the server. Note that there are, or will be, examples for both the PHP server and the new Node.js server.
 
-- `hello-world` : a Hello World OpenWanderer server app. Contains the absolute basic PHP and JavaScript code to view panoramas by ID and navigate along sequences.
+- `hello-world` : a Hello World OpenWanderer server app. Contains the absolute basic server and JavaScript code to view panoramas by ID and navigate along sequences.
 
 - `basic` : a very basic usable app. Allows you to upload sequences of panoramas, as well as search for a panorama by ID or latitude/longitude and navigate along a pano sequence. 
 
