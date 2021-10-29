@@ -8,7 +8,7 @@ This basic application allows you to upload panorama sequences and navigate alon
 How the application works
 -------------------------
 
-This basic example is the next natural step after the [Hello World](https://github.com/openwanderer/example-app/tree/master/node-server/hello-world) example. The PHP code is exactly the same as that example (it sets up a server with authentication disabled); however the JavaScript is more complex to allow for uploading a new pano sequence.
+This basic example is the next natural step after the [Hello World](https://github.com/openwanderer/example-app/tree/master/node-server/hello-world) example. The Node.js code is exactly the same as that example; however the client-side JavaScript is more complex to allow for uploading a new pano sequence.
 
 To look at some key code: 
 
@@ -44,12 +44,6 @@ Building the application
 You need [Node.js](https://nodejs.org) and [NPM](https://npmjs.com) installed on your system. You also need to install [PostGIS](https://postgis.net) as well as PostgreSQL.
 
 A good resource for instructions on installing PostGIS is [on the OpenStreetMap wiki](https://wiki.openstreetmap.org/wiki/PostGIS/Installation). Even though these instructions relate to setting up a Mapnik map tile server, they are equally applicable for setting up a database for OpenWanderer. 
-
-You also need to ensure that the PHP PostgreSQL module is installed, e.g. on Ubuntu 18.04:
-```
-sudo apt-get update
-sudo apt-get install php7.2-pgsql
-```
 
 To setup the database please import `database.sql` into your database.
 
