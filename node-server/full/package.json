@@ -12,6 +12,7 @@
         "node-polyfill-webpack-plugin": "^1.1.0"
     },
     "scripts": {
-        "build": "npx webpack"
+        "build": "npx webpack",
+        "start": "node app.mjs"
     }
 }
