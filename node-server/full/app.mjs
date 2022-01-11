@@ -6,7 +6,7 @@ import db from 'openwanderer-server/db/index.mjs';
 
 const pgSession = connectPgSimple(expressSession);
 
-// openwanderer-server exports a standard Express app object 
+// openwanderer-server exports a standard Express app object
 owServer.use(express.static('public'));
 
 owServer.use(expressSession({
@@ -18,6 +18,7 @@ owServer.use(expressSession({
     saveUninitialized: false,
     rolling: true,
     unset: 'destroy',
+    createTableIfMissing: true,
     cookie: {
         maxAge: 600000,
         httpOnly: false
@@ -61,5 +62,5 @@ owServer.post('/user/logout', (req, res) => {
 owServer.post('/user/signup', (req, res) => {
     res.status(400).json({error: 'Signup functionality not implemented, please login with username admin, password admin'});
 });
-        
+
 owServer.listen(3000);
