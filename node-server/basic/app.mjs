@@ -1,7 +1,7 @@
-import owServer from 'openwanderer-server';
 import express from 'express';
+import { initServer } from 'openwanderer-server';
 
- 
-owServer.use(express.static('public'));
-
-owServer.listen(3000);
+const app = express(); 
+app.use(express.static('public'));
+initServer(app);
+app.listen(3000);

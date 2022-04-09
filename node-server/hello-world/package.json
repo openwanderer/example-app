@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "openwanderer-jsapi": "0.1.4",
-        "openwanderer-server": "^0.2.0"
+        "openwanderer-server": "^0.3.0"
     },
     "devDependencies": {
         "webpack": "^5.30.0",
