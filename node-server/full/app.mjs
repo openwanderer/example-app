@@ -1,5 +1,5 @@
 import express from 'express';
-import { initServer } from 'openwanderer-server';
+import { initOWServer } from 'openwanderer-server';
 import expressSession from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
 import db from 'openwanderer-server/db/index.mjs';
@@ -11,7 +11,10 @@ const pgSession = connectPgSimple(expressSession);
 
 app.use(express.static('public'));
 
-initServer(app);
+const { initDao, panoRouter } = initOWServer(app);
+app.use('/panorama', initDao, panoRouter);
+
+app.listen(3000);
 
 app.use(expressSession({
     store: new pgSession({
