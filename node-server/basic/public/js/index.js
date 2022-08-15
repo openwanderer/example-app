@@ -20,7 +20,7 @@ const navigator = new OpenWanderer.Navigator({
         byId: 'panorama/{id}', 
         panoImg: 'panorama/{id}.jpg',
         nearest: 'panorama/nearest/{lon}/{lat}',
-        sequenceUrl: 'panorama/sequence/{id}'
+        sequenceUrl: 'panorama/sequence/{id}',
     }
 });
 
