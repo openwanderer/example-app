@@ -1,4 +1,6 @@
 # OpenTrailView - OpenWanderer version 
 
 Version of OpenTrailView making use of OpenWanderer.
-Please note that future development will make use of GeoVisio. This version will not be maintained.
+This is broadly similar to the main [current version](https://github.com/nickw1/opentrailview) but uses the OpenWanderer APIs.
+
+However this version is no longer being maintained.
